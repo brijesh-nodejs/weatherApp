@@ -14,8 +14,10 @@ const argv = yargs
   .alias('help', 'h')
   .argv;
 
+// Google api key    AIzaSyDlftn-9zVURCt_fGMN3VrAtpra_IZfeXc
+
 var encodedAddress = encodeURIComponent(argv.address);
-var geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}`;
+var geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=AIzaSyDlftn-9zVURCt_fGMN3VrAtpra_IZfeXc`;
 
 axios.get(geocodeUrl).then((response) => {
   if (response.data.status === 'ZERO_RESULTS') {
@@ -24,7 +26,8 @@ axios.get(geocodeUrl).then((response) => {
 
   var lat = response.data.results[0].geometry.location.lat;
   var lng = response.data.results[0].geometry.location.lng;
-  var weatherUrl = `https://api.forecast.io/forecast/4a04d1c42fd9d32c97a2c291a32d5e2d/${lat},${lng}`;
+  var weatherUrl = `https://api.forecast.io/forecast/9e24effdb31e1caec1eea2103f64b9dc/${lat},${lng}`;
+  console.log('Weather URL >> ', weatherUrl);
   console.log(response.data.results[0].formatted_address);
   return axios.get(weatherUrl);
 }).then((response) => {
